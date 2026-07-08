@@ -126,6 +126,12 @@
     border-top: 1px solid var(--border);
   }
   footer a { color: var(--text-dim); text-decoration: underline; }
+
+  .video-frame {
+    max-width: 900px; margin: 0 auto; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--border); background: var(--bg-raised);
+  }
+  .video-frame video { display: block; width: 100%; height: auto; }
 </style>
 </head>
 <body>
@@ -156,6 +162,21 @@
     </div>
   </div>
 </header>
+
+<section id="tour">
+  <div class="wrap">
+    <h2>Quick tour</h2>
+    <p class="lede">
+      A real, unscripted-looking walkthrough (sped up 4×) — browsing TV/Movies/Anime, opening a series, playing a real
+      episode, using the player overlay's controls and episode playlist, then closing back out.
+    </p>
+    <div class="video-frame">
+      <video autoplay loop muted playsinline>
+        <source src="screenshots/walkthrough.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </div>
+</section>
 
 <section id="screenshots">
   <div class="wrap">
@@ -193,6 +214,22 @@
       <figure>
         <img src="screenshots/08-browse.jpg" alt="Browse page with searchable library grid" loading="lazy" />
         <figcaption>Browse — searchable, filterable library grid</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/09-tv-player-controls.jpg" alt="Player overlay controls over real VLC video" loading="lazy" />
+        <figcaption>Player overlay — controls, over real VLC video (TV/Movies)</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/10-tv-player-playlist.jpg" alt="Player overlay episode playlist sidebar" loading="lazy" />
+        <figcaption>Player overlay — episode playlist sidebar (TV/Movies)</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/11-anime-player-controls.jpg" alt="Anime's separate player overlay controls" loading="lazy" />
+        <figcaption>Anime player overlay — its own separate renderer</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/12-anime-player-playlist.jpg" alt="Anime player overlay playlist with canon/filler tags" loading="lazy" />
+        <figcaption>Anime player overlay — canon/filler-tagged playlist</figcaption>
       </figure>
     </div>
   </div>
