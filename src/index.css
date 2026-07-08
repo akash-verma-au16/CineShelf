@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body,
+	#root {
+		width: 100%;
+		height: 100%;
+	}
+
+	body {
+		background: #0a0a0a;
+		color: #ffffff;
+		font-family:
+			'Helvetica Neue',
+			'Inter',
+			system-ui,
+			-apple-system,
+			sans-serif;
+		-webkit-font-smoothing: antialiased;
+		overflow: hidden;
+	}
+
+	/* Custom scrollbars */
+	::-webkit-scrollbar {
+		width: 5px;
+		height: 5px;
+	}
+	::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.18);
+		border-radius: 4px;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: rgba(255, 255, 255, 0.35);
+	}
+
+	/* Disable text selection on interactive elements */
+	.no-select {
+		user-select: none;
+		-webkit-user-select: none;
+	}
+}
+
+@layer components {
+	.btn-primary {
+		@apply bg-white text-black font-semibold py-2 px-6 rounded-md
+			hover:bg-white/80 active:scale-95 transition-all duration-150 no-select;
+	}
+
+	.btn-secondary {
+		@apply bg-white/20 text-white font-semibold py-2 px-6 rounded-md
+			hover:bg-white/30 active:scale-95 transition-all duration-150 backdrop-blur-sm no-select;
+	}
+
+	.btn-icon {
+		@apply p-2 rounded-full hover:bg-white/10 active:scale-90 transition-all duration-150 no-select;
+	}
+
+	.tag-badge {
+		@apply text-xs font-medium px-2 py-0.5 rounded border border-white/20 text-white/80
+			bg-white/5;
+	}
+
+	.input-field {
+		@apply bg-white/10 border border-white/15 rounded-lg px-4 py-2.5 text-white text-sm
+			placeholder-gray-500 focus:outline-none focus:bg-white/15 focus:border-white/30
+			transition-colors duration-150;
+	}
+
+	.row-title {
+		@apply text-xl font-bold text-white ml-12 mb-3 tracking-wide;
+	}
+
+	/* App-region for frameless window drag */
+	.titlebar-drag {
+		-webkit-app-region: drag;
+	}
+	.titlebar-no-drag {
+		-webkit-app-region: no-drag;
+	}
+}
+
+@layer utilities {
+	.scrollbar-hide {
+		-ms-overflow-style: none;
+		scrollbar-width: none;
+	}
+	.scrollbar-hide::-webkit-scrollbar {
+		display: none;
+	}
+
+	.text-shadow {
+		text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+	}
+
+	.gradient-bottom {
+		background: linear-gradient(to top, #0a0a0a 0%, transparent 100%);
+	}
+
+	.gradient-left {
+		background: linear-gradient(to right, #0a0a0a 30%, transparent 100%);
+	}
+}

@@ -1,0 +1,84 @@
+{
+	"name": "cineshelf",
+	"version": "4.0.0",
+	"description": "Local personal TV series library with Netflix-style UI",
+	"main": "electron/main.js",
+	"homepage": "./",
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"electron": "electron .",
+		"dev": "concurrently \"cross-env BROWSER=none react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
+		"dist": "react-scripts build && electron-builder"
+	},
+	"dependencies": {
+		"@dnd-kit/core": "^6.3.1",
+		"@dnd-kit/sortable": "^10.0.0",
+		"@dnd-kit/utilities": "^3.2.2",
+		"@headlessui/react": "^1.7.17",
+		"@heroicons/react": "^2.0.18",
+		"axios": "^1.6.2",
+		"clsx": "^2.0.0",
+		"dotenv": "^17.4.2",
+		"framer-motion": "^10.16.5",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.20.1",
+		"react-scripts": "5.0.1"
+	},
+	"devDependencies": {
+		"autoprefixer": "^10.4.16",
+		"concurrently": "^8.2.2",
+		"cross-env": "^7.0.3",
+		"electron": "^27.1.3",
+		"electron-builder": "^24.9.1",
+		"postcss": "^8.4.32",
+		"tailwindcss": "^3.3.6",
+		"wait-on": "^7.2.0"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app"
+		],
+		"rules": {
+			"no-unused-vars": "warn"
+		}
+	},
+	"browserslist": {
+		"production": [
+			"last 1 electron version"
+		],
+		"development": [
+			"last 1 electron version"
+		]
+	},
+	"build": {
+		"appId": "com.cineshelf.app",
+		"productName": "CineShelf",
+		"directories": {
+			"output": "dist"
+		},
+		"files": [
+			"build/**/*",
+			"electron/**/*",
+			"node_modules/**/*",
+			"!node_modules/.cache/**/*"
+		],
+		"win": {
+			"target": "nsis",
+			"artifactName": "CineShelf-Setup-${version}.exe"
+		},
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"createDesktopShortcut": true,
+			"createStartMenuShortcut": true,
+			"shortcutName": "CineShelf",
+			"menuCategory": "Entertainment",
+			"deleteAppDataOnUninstall": false
+		},
+		"extraMetadata": {
+			"main": "electron/main.js"
+		}
+	}
+}
