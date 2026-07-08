@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CineShelf — a local, personal media library</title>
+<meta name="description" content="CineShelf: a local, personal Netflix-style media library for TV Shows, Movies, and Anime, played through VLC with a custom overlay." />
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-raised: #141414;
+    --border: #262626;
+    --text: #f5f5f5;
+    --text-dim: #a3a3a3;
+    --red: #e50914;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    scroll-behavior: smooth;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  nav.top {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), rgba(10,10,10,0.7));
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-weight: 800; font-size: 20px; letter-spacing: 0.5px; }
+  .logo .cine { color: var(--red); }
+  nav.top a.cta {
+    font-size: 14px; font-weight: 600;
+    padding: 8px 16px; border-radius: 6px;
+    background: var(--text); color: #0a0a0a;
+    text-decoration: none;
+  }
+
+  header.hero {
+    padding: 96px 24px 64px;
+    text-align: center;
+  }
+  header.hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    margin: 0 0 16px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  header.hero h1 .cine { color: var(--red); }
+  header.hero p.tagline {
+    max-width: 640px;
+    margin: 0 auto 32px;
+    color: var(--text-dim);
+    font-size: 1.15rem;
+    line-height: 1.6;
+  }
+  .badges { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+  .badge {
+    font-size: 12px; padding: 6px 12px; border-radius: 999px;
+    border: 1px solid var(--border); color: var(--text-dim);
+  }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; text-decoration: none;
+    padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 15px;
+  }
+  .btn.primary { background: var(--red); color: white; }
+  .btn.secondary { background: var(--bg-raised); color: var(--text); border: 1px solid var(--border); }
+
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  section h2 {
+    font-size: 1.7rem; margin: 0 0 8px;
+  }
+  section p.lede { color: var(--text-dim); max-width: 720px; margin: 0 0 32px; line-height: 1.6; }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 720px) {
+    .gallery { grid-template-columns: 1fr; }
+  }
+  figure {
+    margin: 0; background: var(--bg-raised); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+  }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { padding: 10px 14px; font-size: 13px; color: var(--text-dim); }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .features { grid-template-columns: 1fr; }
+  }
+  .feature {
+    background: var(--bg-raised); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px;
+  }
+  .feature h3 { margin: 0 0 8px; font-size: 1.05rem; }
+  .feature p { margin: 0; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+
+  .stack {
+    display: flex; flex-wrap: wrap; gap: 10px;
+  }
+  .stack span {
+    background: var(--bg-raised); border: 1px solid var(--border);
+    padding: 8px 14px; border-radius: 8px; font-size: 13px; color: var(--text-dim);
+  }
+
+  footer {
+    padding: 40px 24px 60px; text-align: center; color: var(--text-dim); font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--text-dim); text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="logo"><span class="cine">CINE</span>SHELF</div>
+  <a class="cta" href="https://github.com/akash-verma-au16/CineShelf" target="_blank" rel="noopener">View on GitHub</a>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <h1><span class="cine">CINE</span>SHELF</h1>
+    <p class="tagline">
+      A local, personal media library with a Netflix-style UI — TV Shows, Movies, and Anime,
+      played through VLC with a fully custom on-screen overlay. No cloud, no subscription,
+      no server: just your own files, organized and watched properly.
+    </p>
+    <div class="badges">
+      <span class="badge">Windows</span>
+      <span class="badge">Electron 27</span>
+      <span class="badge">React 18</span>
+      <span class="badge">Powered by VLC</span>
+      <span class="badge">Offline-first</span>
+    </div>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://github.com/akash-verma-au16/CineShelf" target="_blank" rel="noopener">Explore the code</a>
+      <a class="btn secondary" href="#screenshots">See it in action</a>
+    </div>
+  </div>
+</header>
+
+<section id="screenshots">
+  <div class="wrap">
+    <h2>What it looks like</h2>
+    <p class="lede">Real screenshots from a real running session against a populated library — not mockups.</p>
+    <div class="gallery">
+      <figure>
+        <img src="screenshots/01-tv-home.jpg" alt="TV Shows home screen with hero carousel and Recently Watched row" loading="lazy" />
+        <figcaption>TV Shows — home screen, hero carousel + Recently Watched</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/02-tv-detail.jpg" alt="TV series detail page" loading="lazy" />
+        <figcaption>TV Shows — series detail page</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/03-movies-home.jpg" alt="Movies home screen" loading="lazy" />
+        <figcaption>Movies — home screen</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/04-movie-detail.jpg" alt="Movie detail page" loading="lazy" />
+        <figcaption>Movies — detail page with cast and ratings</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/05-anime-home.jpg" alt="Anime home screen" loading="lazy" />
+        <figcaption>Anime — home screen</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/06-anime-detail.jpg" alt="Anime detail page with canon/filler filter" loading="lazy" />
+        <figcaption>Anime — detail page with canon/filler episode filtering</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/07-settings.jpg" alt="Settings page" loading="lazy" />
+        <figcaption>Settings — source directories, TMDB key, playback prefs</figcaption>
+      </figure>
+      <figure>
+        <img src="screenshots/08-browse.jpg" alt="Browse page with searchable library grid" loading="lazy" />
+        <figcaption>Browse — searchable, filterable library grid</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <h2>Why it exists</h2>
+    <p class="lede">
+      Streaming apps are great until the thing you actually own isn't on any of them. CineShelf exists to make a personal,
+      already-organized media collection feel as good to browse and resume as any streaming service — without giving up
+      ownership, paying a subscription, or trusting a server with a library that already lives on disk.
+    </p>
+    <div class="features">
+      <div class="feature">
+        <h3>Three independent libraries</h3>
+        <p>TV Shows, Movies, and Anime are deliberately separate workflows — each with its own scanner, metadata source, and UI — so improving one never risks the others.</p>
+      </div>
+      <div class="feature">
+        <h3>Real VLC playback</h3>
+        <p>No bundled video player. CineShelf launches your installed VLC and drives it over HTTP, drawing a custom transparent overlay on top for every control.</p>
+      </div>
+      <div class="feature">
+        <h3>Automatic metadata & art</h3>
+        <p>TMDB / TVMaze for TV & Movies, AniList → Jikan → TMDB for Anime. Fetched once, cached to disk, fully usable offline after that.</p>
+      </div>
+      <div class="feature">
+        <h3>Watch history & resume</h3>
+        <p>Per-episode position tracking, a 90%-complete threshold, auto-resume, and a series-completion counter.</p>
+      </div>
+      <div class="feature">
+        <h3>Anime-aware scanning</h3>
+        <p>Absolute episode numbering, OVA/special detection, and canon/filler/mixed filtering that drives the actual playback playlist.</p>
+      </div>
+      <div class="feature">
+        <h3>Resilient to disconnected drives</h3>
+        <p>Unplug an external drive and its titles grey out instead of vanishing — nothing is lost from the library.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <h2>Built with</h2>
+    <div class="stack">
+      <span>Electron</span>
+      <span>React 18</span>
+      <span>React Router</span>
+      <span>Tailwind CSS</span>
+      <span>Framer Motion</span>
+      <span>VLC HTTP interface</span>
+      <span>TMDB API</span>
+      <span>AniList GraphQL</span>
+      <span>Jikan (MyAnimeList)</span>
+      <span>AutoHotkey v2</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    CineShelf is a personal project — this page is a portfolio/reference showcase, not a product download.
+    Code is publicly viewable on <a href="https://github.com/akash-verma-au16/CineShelf" target="_blank" rel="noopener">GitHub</a>.
+    All rights reserved.
+  </p>
+</footer>
+
+</body>
+</html>
