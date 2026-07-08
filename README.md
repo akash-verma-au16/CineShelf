@@ -20,7 +20,13 @@ CineShelf turns a folder of TV shows, movies, and anime sitting on local or exte
 
 It doesn't reimplement a video player. When you hit Play, CineShelf launches a real external **VLC** process (controlled over VLC's own HTTP interface) and draws a transparent, always-on-top **Electron overlay** on top of it for all of the playback UI — progress bar, episode switching, audio/subtitle tracks, aspect ratio, and mouse/keyboard bindings via a small AutoHotkey script. VLC does the decoding; CineShelf owns everything you see and click.
 
-This is a personal project built and used daily to organize and watch a real library — the screenshots below are the actual app, running against a real (if idiosyncratic) collection.
+This is a personal project built and used daily to organize and watch a real library — the screenshots and recording below are the actual app, running against a real (if idiosyncratic) collection.
+
+## Quick tour
+
+A real, unscripted-looking walkthrough (sped up 4×): the TV/Movies/Anime home screens, a series detail page, the Browse and Settings shells, then launching a real episode and using the player overlay — controls, the episode playlist sidebar, and closing back out.
+
+<img src="screenshots/walkthrough.gif" alt="Walkthrough: browsing TV/Movies/Anime, opening a series, playing an episode, using the overlay controls and playlist, then closing the player">
 
 ## Screenshots
 
@@ -81,7 +87,37 @@ This is a personal project built and used daily to organize and watch a real lib
 
 </td>
 </tr>
+<tr>
+<td width="50%">
+
+**Player Overlay — controls (TV/Movies)**
+<img src="screenshots/09-tv-player-controls.jpg" alt="The shared TV/Movies player overlay showing progress bar, playback controls, audio/subtitle/aspect/crop buttons over real VLC video">
+
+</td>
+<td width="50%">
+
+**Player Overlay — episode playlist (TV/Movies)**
+<img src="screenshots/10-tv-player-playlist.jpg" alt="The player overlay's playlist sidebar showing the full season with watch progress per episode">
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Anime Player Overlay — controls**
+<img src="screenshots/11-anime-player-controls.jpg" alt="Anime's own separate player overlay renderer showing controls over real video">
+
+</td>
+<td width="50%">
+
+**Anime Player Overlay — canon/filler-aware playlist**
+<img src="screenshots/12-anime-player-playlist.jpg" alt="Anime player overlay playlist sidebar tagging each episode Canon/Filler/Mixed">
+
+</td>
+</tr>
 </table>
+
+Note the two overlays are genuinely different components (`src/shared/components/Player/PlayerOverlay.js` for TV/Movies vs. `src/anime/components/Player/AnimePlayerOverlay.js` for Anime) sharing the same underlying VLC/Electron plumbing — see [Architecture, in brief](#architecture-in-brief) below.
 
 ## Features
 
